@@ -1,0 +1,16 @@
+.venv/
+.runtime/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+models/
+datasets/
+*.pt
+*.pth
+*.onnx
+*.joblib
+*.pkl
+*.log
+.pytest_cache/
