@@ -87,8 +87,8 @@ Verified on Windows / Python 3.12 / CPU on 2026-10-18:
   matches 47/50, reproducing its existing errors. This is not the full test metric.
 - The live API correctly processes one image from each of the five classes.
 - The browser's upload/analyze flow shows Cod / Gadus morhua with score 0.952.
-- Startup, stop and restart work through the Windows launcher. Freshness is
-  still explicitly a demonstration.
+- Startup, stop and restart work through the Windows launcher. The independently
+  trained freshness ResNet-18 is now connected; see [freshness setup](FRESHNESS_MODEL.md).
 
 Loading Ultralytics patches Pillow's global image opener. The server retains
 Pillow's original JPEG/PNG decoder before model loading, so corrupt uploads
