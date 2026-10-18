@@ -6,9 +6,14 @@ already-cropped eye close-up; this model does not locate eyes in whole-fish phot
 
 ## Install
 
-Obtain `42177_FFE_freshness_baseline_2026-10-18.zip` from the team's freshness
-training delivery. The code repository does not include weights. No retraining
+Download `42177_FFE_freshness_baseline_2026-10-18.zip` from the
+[FFE GitHub Release](https://github.com/YuLi618/42177-Group-Fish-Identification/releases/tag/ffe-freshness-v1).
+The code repository does not include weights. No retraining
 or GPU is required to use the website.
+
+ZIP SHA-256: `276af1bfa6605c03e5fa7ea9c28838987e04afb9aa66c31e1b1f6e841d95b056`.
+The release preserves the original training snapshot; use this repository for
+the current website code and installer.
 
 Run from the repository root after setting up `.venv`:
 

@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-18",
+  "platform": "Windows / Python 3.12 / CPU",
+  "purpose": "Integration regression, not a new accuracy estimate",
+  "automated_tests": {
+    "passed": 15,
+    "failed": 0
+  },
+  "freshness": {
+    "passed": true,
+    "checked_at_utc": "2026-10-18T07:01:03.384287+00:00",
+    "samples": 30,
+    "all_labels_match_delivery": true,
+    "live_matches_local_cpu": true,
+    "max_reference_score_difference": 0.0012583732604980469,
+    "jpeg_upload": "passed",
+    "invalid_upload": "HTTP 400"
+  },
+  "connected_models": [
+    [
+      "species",
+      "svm"
+    ],
+    [
+      "species",
+      "resnet18"
+    ],
+    [
+      "species",
+      "yolov8n_cls"
+    ],
+    [
+      "freshness",
+      "resnet18"
+    ]
+  ],
+  "species": {
+    "samples_per_model": 5,
+    "image_hashes_verified": true,
+    "matched_delivery_by_model": {
+      "svm": 5,
+      "resnet18": 5,
+      "yolov8n_cls": 5
+    }
+  },
+  "browser_check": {
+    "task": "freshness",
+    "label": "fresh",
+    "displayed_score": 0.734,
+    "displayed_mode": "Model output"
+  },
+  "notes": [
+    "Local process IDs, request IDs, image copies and machine paths omitted.",
+    "Freshness reference scores originate on GPU; small CPU floating-point differences are expected."
+  ]
+}

@@ -5,6 +5,8 @@ project. Two independent image tasks, three model families, one shared interface
 
 **组员安装与启动步骤：[中文快速运行指南](docs/QUICKSTART_ZH.md)。**
 
+**当前进度、模型比较、相关研究和下一步工作：[2026-10-18 项目总结](docs/PROJECT_PROGRESS_AND_RESEARCH_2026-10-18.md)。**
+
 For real predictions, install the separate model deliveries using
 [species setup](docs/SPECIES_MODELS.md) and [freshness setup](docs/FRESHNESS_MODEL.md).
 The code ZIP alone has no weights.
@@ -56,7 +58,7 @@ delivered species classifiers. Python 3.12 is the tested runtime.
 
 - Responsive English interface, two task tabs, image preview and drag-and-drop.
 - Final model selected per task in backend/config.py, with no user-facing model selector.
-- Explicit demo display until each task has its final model configured.
+- Both tasks use configured trained models; explicit demo display is reserved for unconfigured tasks.
 - JPEG/PNG validation, size limits and EXIF orientation correction.
 - Prediction endpoints with validated adapter outputs and a model registry.
 - Server-side result lookup and local explanation fallback.

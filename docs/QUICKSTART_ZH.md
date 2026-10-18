@@ -6,10 +6,12 @@ FFE 鱼眼新鲜度也使用独立训练的 ResNet-18，支持非常新鲜、新
 ## 需要下载的文件
 
 1. 项目代码：使用包含鱼种和鱼眼接入的代码版本，安装说明应包含 `scripts.install_freshness_model`。
+   在小组主分支合并前，可先下载[本次集成分支 ZIP](https://github.com/YuLi618/42177-Group-Fish-Identification/archive/refs/heads/codex/train-ffe-freshness.zip)。
 2. 模型包：[completed_species_models.zip](https://drive.google.com/file/d/1ILFvrXrha-Rv-SMK_8XcLaDa_I5N5_W9/view)。
    该文件按原有 Google Drive 权限访问；如果无法下载，请让文件所有者向你的组员账号共享。
    无需重新训练，也不必下载完整图片数据集才能使用网站。
-3. 鱼眼模型包：从训练负责同学取得 `42177_FFE_freshness_baseline_2026-10-18.zip`。
+3. 鱼眼模型包：从 [FFE GitHub Release](https://github.com/YuLi618/42177-Group-Fish-Identification/releases/tag/ffe-freshness-v1)
+   下载 `42177_FFE_freshness_baseline_2026-10-18.zip`（不要误选自动生成的 Source code ZIP）。
 
 模型权重、数据集、`.venv` 和 `.runtime` 都不提交到 Git。
 
@@ -61,3 +63,4 @@ Windows 是本次完成联调的环境；macOS/Linux 使用相同 Python 接口�
 - 鱼眼仍显示演示：确认代码版本与 `backend/config.py` 已更新，重启服务并刷新页面。
 
 完整接入与测试说明见 [SPECIES_MODELS.md](SPECIES_MODELS.md) 和 [FRESHNESS_MODEL.md](FRESHNESS_MODEL.md)。
+当前模型比较、相关研究与后续分工见[项目进度总结](PROJECT_PROGRESS_AND_RESEARCH_2026-10-18.md)。
