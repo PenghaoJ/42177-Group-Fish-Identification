@@ -24,6 +24,6 @@ def predict(task, model, image, mode):
         return {"label": LABELS[task][0], "score": None, "model_version": "demo-fixture-v1"}
     predictor = PREDICTORS.get((task, model))
     if predictor is None:
-        raise LookupError("This trained model is not connected yet. Use Demo to preview the workflow.")
+        raise LookupError("The selected trained model is unavailable. Install its weights and restart FishLens.")
     return predictor(image)
 

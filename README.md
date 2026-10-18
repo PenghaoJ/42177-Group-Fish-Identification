@@ -5,8 +5,9 @@ project. Two independent image tasks, three model families, one shared interface
 
 **组员安装与启动步骤：[中文快速运行指南](docs/QUICKSTART_ZH.md)。**
 
-For real species predictions, download and install the separate model delivery
-using [species setup](docs/SPECIES_MODELS.md). The code ZIP alone has no weights.
+For real predictions, install the separate model deliveries using
+[species setup](docs/SPECIES_MODELS.md) and [freshness setup](docs/FRESHNESS_MODEL.md).
+The code ZIP alone has no weights.
 
 ## Run locally
 
@@ -73,9 +74,16 @@ See [species setup](docs/SPECIES_MODELS.md) for their source, layout, installati
 and verification. Missing weights produce an unavailable error for the selected
 model; the service does not silently substitute demonstration output.
 
+## Freshness model
+
+The validation-selected FFE ResNet-18 is registered from `models/freshness/resnet18/`.
+It predicts highly fresh, fresh or not fresh from an eye close-up using the original
+224-pixel letterbox and ImageNet normalisation. No eye detection or species
+matching is required or performed. Install it using [freshness setup](docs/FRESHNESS_MODEL.md).
+
 ## What is not connected yet
 
-Freshness remains in demo mode. No external Agent API or verified location
+No external Agent API or verified location
 database is connected. Demo output is fixed and never represents a prediction. An image cannot confirm
 food safety. The five supported species are the submitted AutoFish subset, not
 a validated Sydney fish catalogue. Eye input must already be a clear close-up.
@@ -87,15 +95,15 @@ See [integration contract](docs/INTEGRATION.md) before implementing a model.
 - `frontend/`: website
 - `backend/`: API, model registry and explanation adapter
 - `fish_species/`: inference source preserved from the delivered species package
+- `fish_freshness/`: FFE training, evaluation and inference
 - `training/`: model training code
 - `inference/`: shared inference implementation notes
 - `knowledge/`: reviewed information and citations
 - `evaluation/`: agreed held-out metrics
 - `docs/`: handoff and API contract
 
-Use separate branches and pull requests. The local Git repository is ready for
-an eventual GitHub remote; no GitHub repository or collaborator invitations are
-created by this scaffold. Do not commit the full course folder.
+Use separate branches and pull requests for team collaboration. Keep model
+weights and datasets outside Git. Do not commit the full course folder.
 
 ## Tests
 

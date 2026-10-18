@@ -107,4 +107,5 @@ YOLOv8n-cls for three-class fish-eye freshness classification; model packaging a
 & $trainPython -m fish_freshness.predict --model .training/runs/resnet18/best.pt --image path/to/eye.png --device cpu
 ```
 
-训练结果生成后可以交由网站接入人员注册该预测器；本训练步骤不会自动更改网站最终模型配置。
+训练步骤本身不会更改网站配置。选定的 ResNet-18 现已完成单独的网站接入，安装与启动方法见
+[鱼眼模型接入说明](FRESHNESS_MODEL.md)。其他两个模型保留在训练交付包用于比较。
