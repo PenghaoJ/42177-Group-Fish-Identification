@@ -1,1 +1,9 @@
-Pillow>=11.0,<13
+# Inference versions from the supplied completed_species_models delivery.
+Pillow==12.3.0
+numpy==2.5.4
+torch==2.14.1
+torchvision==0.29.1
+ultralytics==8.4.178
+scikit-learn==1.9.1
+scikit-image==0.26.0
+joblib==1.6.0

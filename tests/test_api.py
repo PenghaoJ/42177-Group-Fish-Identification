@@ -10,6 +10,14 @@ from backend import server, adapters, config
 from unittest.mock import patch
 
 class APITest(unittest.TestCase):
+    def setUp(self):
+        # API contract tests must not depend on locally installed model weights.
+        self.config_patch = patch.dict(config.FINAL_MODELS, {'species':None, 'freshness':None}, clear=True)
+        self.registry_patch = patch.dict(adapters.PREDICTORS, {}, clear=True)
+        self.config_patch.start(); self.registry_patch.start()
+        self.addCleanup(self.config_patch.stop)
+        self.addCleanup(self.registry_patch.stop)
+
     @classmethod
     def setUpClass(cls):
         cls.server = server.ThreadingHTTPServer(('127.0.0.1', 0), server.Handler)

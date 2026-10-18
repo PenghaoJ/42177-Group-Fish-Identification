@@ -14,3 +14,4 @@ datasets/
 *.pkl
 *.log
 .pytest_cache/
+.cache/
