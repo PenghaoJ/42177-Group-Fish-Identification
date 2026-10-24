@@ -3,4 +3,4 @@
 None means explicit demonstration mode. A selected but unregistered model
 returns an unavailable error, never a demo result. Restart after changing this.
 """
-FINAL_MODELS = {"species": "resnet18", "freshness": None}
+FINAL_MODELS = {"species": "resnet18", "freshness": "resnet18"}

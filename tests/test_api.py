@@ -48,9 +48,23 @@ class APITest(unittest.TestCase):
             self.assertEqual(status, 200); self.assertIn('DEMO ONLY', explanation['text'])
 
     def test_final_model_does_not_fall_back_to_demo(self):
-        with patch.dict(config.FINAL_MODELS, {'species':'resnet18'}):
-            status, _ = self.post('/api/predict/species', {'image_base64':self.encoded})
-            self.assertEqual(status, 503)
+        for task in ('species', 'freshness'):
+            with self.subTest(task=task), patch.dict(config.FINAL_MODELS, {task:'resnet18'}):
+                status, _ = self.post('/api/predict/'+task, {'image_base64':self.encoded})
+                self.assertEqual(status, 503)
+
+    def test_freshness_result_and_explanation_are_independent_of_species(self):
+        with patch.dict(config.FINAL_MODELS, {'freshness':'resnet18'}):
+            adapters.register('freshness', 'resnet18', lambda image: {
+                'label':'not_fresh', 'score':.81, 'model_version':'ffe-test'})
+            status, result = self.post('/api/predict/freshness', {'image_base64':self.encoded})
+            self.assertEqual(status, 200)
+            self.assertEqual((result['mode'], result['model'], result['label']), ('trained', 'resnet18', 'not_fresh'))
+            self.assertIsNone(result['scientific_name'])
+            status, explanation = self.post('/api/explain', {'result_id':result['id']})
+            self.assertEqual(status, 200)
+            self.assertNotIn('DEMO ONLY', explanation['text'])
+            self.assertIn('not a measure of storage time or food safety', explanation['text'])
 
     def test_invalid_input_and_untrusted_explanation(self):
         for payload in [[], {'image_base64':'not base64'}, {'image_base64':base64.b64encode(b'not an image').decode()}, {'image_base64':self.encoded,'model':'fake'}]:

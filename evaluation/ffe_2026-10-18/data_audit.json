@@ -1,0 +1,48 @@
+{
+  "train": {
+    "samples": 3074,
+    "class_counts": {
+      "fresh": 924,
+      "highly_fresh": 1235,
+      "not_fresh": 915
+    },
+    "source_groups": 2038,
+    "missing_specimen_ids": 3074
+  },
+  "validation": {
+    "samples": 662,
+    "class_counts": {
+      "fresh": 199,
+      "highly_fresh": 266,
+      "not_fresh": 197
+    },
+    "source_groups": 615,
+    "missing_specimen_ids": 662
+  },
+  "test": {
+    "samples": 654,
+    "class_counts": {
+      "fresh": 197,
+      "highly_fresh": 263,
+      "not_fresh": 194
+    },
+    "source_groups": 572,
+    "missing_specimen_ids": 654
+  },
+  "status": "passed",
+  "checked_at_utc": "2026-10-18T05:20:33.859834+00:00",
+  "labels": [
+    "highly_fresh",
+    "fresh",
+    "not_fresh"
+  ],
+  "image_hashes_verified": 4390,
+  "manifest_hashes": {
+    "train": "c7385c42c26c99f4cc0da2b85712c521c1f258a960e5396352fb946f99ddd007",
+    "validation": "68045de8e2946f74fde58e03ebce55e9cf024be213d58baf2616ed19c490ea4a",
+    "test": "6adc3810310d97bf8c923af56e43e5f578f7fd11f618373ad6182372924e1dc6"
+  },
+  "limitation": "Provisional source/near-duplicate-grouped split; specimen IDs absent, so individual-fish independence is unverified.",
+  "source_groups_isolated": true,
+  "verified_specimen_independence": false
+}

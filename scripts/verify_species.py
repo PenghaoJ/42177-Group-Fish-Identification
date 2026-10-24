@@ -102,7 +102,7 @@ def main():
         base = args.url.rstrip("/")
         report["health"] = request_json(base + "/api/health")
         report["config"] = request_json(base + "/api/config")
-        if report["config"]["tasks"] != {"species": {"mode": "trained"}, "freshness": {"mode": "demo"}}:
+        if report["config"]["tasks"]["species"]["mode"] != "trained":
             failures.append("Unexpected live task modes")
         for row in examples:
             result = request_json(base + "/api/predict/species", payloads[row["sample_id"]])
@@ -112,10 +112,6 @@ def main():
             if "DEMO ONLY" in explanation["text"]:
                 failures.append("Live species explanation incorrectly says demo")
             report["live_api"].append({"sample_id": row["sample_id"], **result})
-        fresh = request_json(base + "/api/predict/freshness", payloads[examples[0]["sample_id"]])
-        if fresh["mode"] != "demo" or fresh["score"] is not None:
-            failures.append("Freshness must remain explicit demo")
-        report["freshness_demo_verified"] = True
     report["failures"] = failures
     report["passed"] = not failures
     args.output.parent.mkdir(parents=True, exist_ok=True)

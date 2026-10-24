@@ -36,7 +36,8 @@ needs the separate model download. Only load the trusted group delivery: the SVM
 uses Python/joblib serialization. Each checkpoint's SHA-256 is checked against
 its selection file, and the adapter verifies architecture and class order.
 
-`backend/config.py` selects `resnet18` for species and `None` for freshness.
+`backend/config.py` selects `resnet18` independently for species and freshness.
+The two tasks use separate checkpoints and label sets.
 All three installed species models are registered; change the species value to
 `svm` or `yolov8n_cls` and restart to use an alternative. The frontend deliberately
 does not let users choose models. An absent selected model returns HTTP 503.
@@ -66,7 +67,7 @@ models remain valid when real weights are installed.
 Real-model checks must additionally use original dataset images, verify their
 manifest hashes and compare predictions to the delivered records. An integration
 smoke check is not a new accuracy study or evidence about unseen fish species.
-Freshness remains a separate task and its model has not been connected here.
+Freshness is connected as a separate task; see [freshness setup](FRESHNESS_MODEL.md).
 
 With the original dataset and unpacked delivery available, run:
 
@@ -87,8 +88,8 @@ Verified on Windows / Python 3.12 / CPU on 2026-10-18:
   matches 47/50, reproducing its existing errors. This is not the full test metric.
 - The live API correctly processes one image from each of the five classes.
 - The browser's upload/analyze flow shows Cod / Gadus morhua with score 0.952.
-- Startup, stop and restart work through the Windows launcher. Freshness is
-  still explicitly a demonstration.
+- Startup, stop and restart work through the Windows launcher. The independently
+  trained freshness ResNet-18 is now connected; see [freshness setup](FRESHNESS_MODEL.md).
 
 Loading Ultralytics patches Pillow's global image opener. The server retains
 Pillow's original JPEG/PNG decoder before model loading, so corrupt uploads

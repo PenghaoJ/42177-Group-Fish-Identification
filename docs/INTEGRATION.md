@@ -15,8 +15,8 @@ is not passed on, and pixels are converted to RGB. No images are persisted.
 
 The public API does not accept model or mode overrides. Configure each final
 model in `backend/config.py` using `FINAL_MODELS`. Allowed selections are `svm`,
-`resnet18`, `yolov8n_cls`; `None` leaves that task in explicit demo mode. No model
-has been selected yet. Tasks may use different final models. Restart the server
+`resnet18`, `yolov8n_cls`; `None` leaves that task in explicit demo mode. Both
+tasks currently select their separately trained ResNet-18. Tasks may use different final models. Restart the server
 when changing this configuration. A selected but unregistered model returns 503.
 Demo returns the first label, a null score and no selected model.
 `GET /api/config` exposes only each task's mode for the UI banner and button.
@@ -75,7 +75,9 @@ standardisation and exclusion of padding. Do not rely on ground-truth masks at
 inference unless the user can actually supply them. Load weights once; set neural
 models to evaluation mode. Protect non-thread-safe model state with a lock.
 
-All three families need separate predictors for the two tasks. Restart the
+Each task needs its own separately trained predictor; weights are not shared
+between species and freshness. Currently all three species families and the
+selected freshness ResNet-18 are registered when installed. Restart the
 server after registration. Do not commit datasets, weights, uploads or secrets.
 
 ## Connecting an Agent API later

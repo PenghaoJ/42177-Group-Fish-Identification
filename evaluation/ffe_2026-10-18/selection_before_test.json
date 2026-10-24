@@ -1,0 +1,32 @@
+{
+  "selected_family": "resnet18",
+  "selection_basis": "Validation macro-F1, then accuracy; first family for exact ties",
+  "candidates": [
+    {
+      "family": "svm",
+      "checkpoint_sha256": "d1189efc364a44bf0529197a8e8b01b8a839d8e53db84a72f47de6d8da07bf73",
+      "validation_macro_f1": 0.7279975946717876,
+      "validation_accuracy": 0.7326283987915407
+    },
+    {
+      "family": "resnet18",
+      "checkpoint_sha256": "47436cb20198b32d711d7f1e8d677c4eb901e44fa55eb053a9389ed338296778",
+      "validation_macro_f1": 0.8194921232461754,
+      "validation_accuracy": 0.823262839879154
+    },
+    {
+      "family": "yolov8n_cls",
+      "checkpoint_sha256": "3b7e2fe4b18088f50e67c37b82bd9648e37d41f4f9aca322f33a753369228c81",
+      "validation_macro_f1": 0.7096324606112486,
+      "validation_accuracy": 0.7129909365558912
+    }
+  ],
+  "manifest_hashes": {
+    "train": "c7385c42c26c99f4cc0da2b85712c521c1f258a960e5396352fb946f99ddd007",
+    "validation": "68045de8e2946f74fde58e03ebce55e9cf024be213d58baf2616ed19c490ea4a",
+    "test": "6adc3810310d97bf8c923af56e43e5f578f7fd11f618373ad6182372924e1dc6"
+  },
+  "limitation": "Provisional source/near-duplicate-grouped split; specimen IDs absent, so individual-fish independence is unverified.",
+  "test_used_for_selection": false,
+  "frozen_at_utc": "2026-10-18T05:31:04.684232+00:00"
+}
