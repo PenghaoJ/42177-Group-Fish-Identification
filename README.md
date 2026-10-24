@@ -3,6 +3,11 @@
 Local website and API scaffold for the submitted fish species and eye freshness
 project. Two independent image tasks, three model families, one shared interface.
 
+**组员安装与启动步骤：[中文快速运行指南](docs/QUICKSTART_ZH.md)。**
+
+For real species predictions, download and install the separate model delivery
+using [species setup](docs/SPECIES_MODELS.md). The code ZIP alone has no weights.
+
 ## Run locally
 
 On Windows 10/11, download or clone the repository, extract the entire folder
@@ -42,8 +47,9 @@ python3 -m venv .venv
 
 Open http://127.0.0.1:8765 when starting manually.
 
-Only Pillow is required. The frontend uses HTML, CSS and JavaScript without a
-build step. The Python backend is deliberately small for student integration.
+The frontend uses HTML, CSS and JavaScript without a build step. The project
+environment also installs the pinned inference dependencies for the three
+delivered species classifiers. Python 3.12 is the tested runtime.
 
 ## What works
 
@@ -55,10 +61,22 @@ build step. The Python backend is deliberately small for student integration.
 - Server-side result lookup and local explanation fallback.
 - Clear errors for missing models, bad images and expired results.
 
+## Species models
+
+The delivered SVM, ResNet-18 and YOLOv8n-cls predictors are registered at startup.
+ResNet-18 is the validation-selected default. CNN inference preserves the original
+224-pixel full-fish letterbox and four-flip averaging. No training or downloads
+of pretrained weights occur when starting the website.
+
+Weights are stored locally under `models/species/` and are excluded from Git.
+See [species setup](docs/SPECIES_MODELS.md) for their source, layout, installation
+and verification. Missing weights produce an unavailable error for the selected
+model; the service does not silently substitute demonstration output.
+
 ## What is not connected yet
 
-No trained model, external Agent API or verified location database is included.
-Demo output is fixed and never represents a prediction. An image cannot confirm
+Freshness remains in demo mode. No external Agent API or verified location
+database is connected. Demo output is fixed and never represents a prediction. An image cannot confirm
 food safety. The five supported species are the submitted AutoFish subset, not
 a validated Sydney fish catalogue. Eye input must already be a clear close-up.
 
@@ -68,6 +86,7 @@ See [integration contract](docs/INTEGRATION.md) before implementing a model.
 
 - `frontend/`: website
 - `backend/`: API, model registry and explanation adapter
+- `fish_species/`: inference source preserved from the delivered species package
 - `training/`: model training code
 - `inference/`: shared inference implementation notes
 - `knowledge/`: reviewed information and citations

@@ -65,7 +65,7 @@ try {
     $previousHash = if (Test-Path -LiteralPath $stamp) { (Get-Content -LiteralPath $stamp -Raw).Trim() } else { '' }
     $dependenciesReady = $false
     try {
-        & $venvPython -c "import PIL; from importlib.metadata import version; major=int(version('Pillow').split('.')[0]); assert 11 <= major < 13" 2>$null | Out-Null
+        & $venvPython -c "from importlib.metadata import version; from pathlib import Path; requirements=Path('requirements.txt').read_text().splitlines(); assert all(version(name.strip()).split('+')[0] == expected.strip() for line in requirements if line.strip() and not line.lstrip().startswith('#') for name,expected in [line.split('==',1)])" 2>$null | Out-Null
         $dependenciesReady = $LASTEXITCODE -eq 0
     } catch { }
     if ($previousHash -ne $hash -or -not $dependenciesReady) {
@@ -77,8 +77,9 @@ try {
         Set-Content -LiteralPath $stamp -Value $hash -Encoding ASCII
     }
     if ($SetupOnly) { Write-Host 'Environment ready.' -ForegroundColor Green; exit 0 }
-    $instance = (& $venvPython -c 'from backend.server import INSTANCE_ID; print(INSTANCE_ID)').Trim()
-    if ($LASTEXITCODE -ne 0) { throw 'Backend import failed. Check model dependencies.' }
+    # Compute the same checkout identity without loading all models twice.
+    $instance = (& $venvPython -c 'import hashlib; from pathlib import Path; print(hashlib.sha256(str(Path.cwd().resolve()).casefold().encode()).hexdigest()[:16])').Trim()
+    if ($LASTEXITCODE -ne 0) { throw 'Could not compute the project identity.' }
     $port = $null
     foreach ($candidatePort in 8765..8785) {
         $health = Get-Health $candidatePort
@@ -104,7 +105,7 @@ try {
     Write-Host "Starting http://127.0.0.1:$port ..."
     $serverProcess = Start-Process -FilePath $venvPython -ArgumentList '-m','backend.server' -WorkingDirectory $PSScriptRoot -WindowStyle Hidden -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr
     $ready = $false
-    for ($attempt = 0; $attempt -lt 45; $attempt++) {
+    for ($attempt = 0; $attempt -lt 120; $attempt++) {
         $serverProcess.Refresh()
         if ($serverProcess.HasExited) { break }
         $health = Get-Health $port

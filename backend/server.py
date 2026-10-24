@@ -15,6 +15,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
 from PIL import Image, ImageOps, UnidentifiedImageError
+from PIL.Image import open as open_uploaded_image
 from . import adapters, agent, config
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -46,7 +47,9 @@ def process(task, payload):
     try:
         with warnings.catch_warnings():
             warnings.simplefilter("error", Image.DecompressionBombWarning)
-            with Image.open(io.BytesIO(raw)) as original:
+            # Retain Pillow's decoder before Ultralytics patches Image.open.
+            # Invalid uploads must remain HTTP 400, without optional HEIF imports.
+            with open_uploaded_image(io.BytesIO(raw), formats=("JPEG", "PNG")) as original:
                 if original.format not in ("JPEG", "PNG"):
                     raise ValueError("Only JPEG and PNG images are supported")
                 if original.width * original.height > 20_000_000:
